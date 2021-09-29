@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/sensordash/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/sensordash/static/js/main.df51d88a.chunk.js",
-    "main.js.map": "/sensordash/static/js/main.df51d88a.chunk.js.map",
+    "main.js": "/sensordash/static/js/main.e8639ea9.chunk.js",
+    "main.js.map": "/sensordash/static/js/main.e8639ea9.chunk.js.map",
     "runtime-main.js": "/sensordash/static/js/runtime-main.38bc4376.js",
     "runtime-main.js.map": "/sensordash/static/js/runtime-main.38bc4376.js.map",
     "static/js/2.a39599f4.chunk.js": "/sensordash/static/js/2.a39599f4.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.38bc4376.js",
     "static/js/2.a39599f4.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.df51d88a.chunk.js"
+    "static/js/main.e8639ea9.chunk.js"
   ]
 }
