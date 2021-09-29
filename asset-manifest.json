@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/sensordash/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/sensordash/static/js/main.a9e22efc.chunk.js",
-    "main.js.map": "/sensordash/static/js/main.a9e22efc.chunk.js.map",
+    "main.js": "/sensordash/static/js/main.4f464efe.chunk.js",
+    "main.js.map": "/sensordash/static/js/main.4f464efe.chunk.js.map",
     "runtime-main.js": "/sensordash/static/js/runtime-main.38bc4376.js",
     "runtime-main.js.map": "/sensordash/static/js/runtime-main.38bc4376.js.map",
-    "static/js/2.e3fc40b4.chunk.js": "/sensordash/static/js/2.e3fc40b4.chunk.js",
-    "static/js/2.e3fc40b4.chunk.js.map": "/sensordash/static/js/2.e3fc40b4.chunk.js.map",
+    "static/js/2.a39599f4.chunk.js": "/sensordash/static/js/2.a39599f4.chunk.js",
+    "static/js/2.a39599f4.chunk.js.map": "/sensordash/static/js/2.a39599f4.chunk.js.map",
     "static/js/3.90f7a6a4.chunk.js": "/sensordash/static/js/3.90f7a6a4.chunk.js",
     "static/js/3.90f7a6a4.chunk.js.map": "/sensordash/static/js/3.90f7a6a4.chunk.js.map",
     "index.html": "/sensordash/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/sensordash/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.e3fc40b4.chunk.js.LICENSE.txt": "/sensordash/static/js/2.e3fc40b4.chunk.js.LICENSE.txt"
+    "static/js/2.a39599f4.chunk.js.LICENSE.txt": "/sensordash/static/js/2.a39599f4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.38bc4376.js",
-    "static/js/2.e3fc40b4.chunk.js",
+    "static/js/2.a39599f4.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.a9e22efc.chunk.js"
+    "static/js/main.4f464efe.chunk.js"
   ]
 }
