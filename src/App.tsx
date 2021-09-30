@@ -5,6 +5,9 @@ import Dashboard from './components/Dashboard'
 
 import db from './firebase';
 import { ref, child, get, onValue } from "firebase/database";
+import axios from 'axios'
+
+const url = "https://sensordash.000webhostapp.com/index.php"
 
 interface wavType {
   name: string
@@ -79,6 +82,9 @@ function App() {
   const [lastUpdated, setLastUpdated] = useState('')
   const [currentTime, setCurrentTime] = useState(d)
 
+  const [serverOnline, setServerOnline] = useState(false)
+
+
   useEffect(() => {
     const sensorsRef = ref(db, 'Sensors/');
 
@@ -140,6 +146,8 @@ function App() {
       }
 
       updateCurrentTime()
+
+      checkServer()
     })
 
 
@@ -165,8 +173,42 @@ function App() {
           lastUpdated={lastUpdated}
 
           largestWave={largestWave}
+
+          serverOnline={serverOnline}
         />
   );
+
+  async function checkServer() {
+    /*
+    let resp = await axios({
+      method: 'get',
+      url,
+      headers: { 
+        "content-type": 'text/html',
+        "Access-Control-Allow-Origin": "*"
+      },
+  })  
+  */
+    fetch(url, {method: 'GET'})
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      if(json.status === 'online')
+        setServerOnline(true)
+      else 
+        setServerOnline(false)
+    })
+    .catch(err => {
+      setServerOnline(false)
+    })
+  
+    /*
+    if(resp === true.)
+    else
+    */
+    
+    return setTimeout(checkServer, 120000);
+  }
 
   function updateCurrentTime() {
     let d = new Date()

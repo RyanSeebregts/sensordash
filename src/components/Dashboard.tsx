@@ -95,6 +95,7 @@ interface propTypes {
     currentTime: Date
     lastUpdated: string
     largestWave: number
+    serverOnline: boolean
 }
 
 
@@ -111,6 +112,7 @@ function Dashboard(props:propTypes) {
                     fontWeight: 'bold'
                 }}
             >
+                
                 <DateContainer>
                     Last updated: 
                     <div style={{fontSize: '20px'}}>
@@ -197,9 +199,24 @@ function Dashboard(props:propTypes) {
         </WaveContentContainer>
 
         <div style={{
-            width: '100%', height: '30px', display: 'flex', alignItems: 'center', background: '#eeeeee'
+            width: '100%', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#eeeeee'
         }}>
             <div style={{marginLeft: '20px', fontSize: '15px'}}>* all averages calculated using last 10 samples</div>
+
+            <div 
+                style={{
+                    marginRight: '20px', 
+                    fontSize: '15pzx',
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '100%',
+                }}
+                
+            >
+                Server:
+                <div style={{height: '10px', marginLeft: '5px', marginTop: '2px', marginRight: '5px', width: '10px', borderRadius: '5px', background: props.serverOnline ? 'green' : 'red'}} />
+                {props.serverOnline ? "online" : "offline" }
+            </div>
         </div>
 
                 {/*
