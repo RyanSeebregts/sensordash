@@ -73,8 +73,10 @@ function App() {
   const [coAverage, setCoAverage] = useState<number>(0)
 
   const [waveSamples, setWaveSamples] = useState(waveSampleTemp)
+  const [largestWave, setLargestWave] = useState(0)
 
-  const [lastUpdated, setLastUpdated] = useState(d)
+
+  const [lastUpdated, setLastUpdated] = useState('')
   const [currentTime, setCurrentTime] = useState(d)
 
   useEffect(() => {
@@ -106,26 +108,38 @@ function App() {
           let newCo:number = sens[key]["Carbon dioxide"]
           newCoSamples.push( newCo )
 
-          newWaves[0].samples.push(sens[key]["F1 415nm"] * 100) 
-          newWaves[1].samples.push(sens[key]["F2 445nm"] * 100) 
-          newWaves[2].samples.push(sens[key]["F3 480nm"] * 100) 
-          newWaves[3].samples.push(sens[key]["F4 515nm"] * 100) 
-          newWaves[4].samples.push(sens[key]["F5 555nm"] * 100) 
-          newWaves[5].samples.push(sens[key]["F6 590nm"] * 100) 
-          newWaves[6].samples.push(sens[key]["F7 630nm"] * 100) 
-          newWaves[7].samples.push(sens[key]["F8 680nm"] * 100) 
-          newWaves[8].samples.push(sens[key]["Clear"] * 100) 
-          newWaves[9].samples.push(sens[key]["NIR"] * 100) 
 
+          newWaves[0].samples.push(sens[key]["F1 415nm"] ) 
+          newWaves[1].samples.push(sens[key]["F2 445nm"] ) 
+          newWaves[2].samples.push(sens[key]["F3 480nm"] ) 
+          newWaves[3].samples.push(sens[key]["F4 515nm"] ) 
+          newWaves[4].samples.push(sens[key]["F5 555nm"] ) 
+          newWaves[5].samples.push(sens[key]["F6 590nm"] ) 
+          newWaves[6].samples.push(sens[key]["F7 630nm"] ) 
+          newWaves[7].samples.push(sens[key]["F8 680nm"] ) 
+          newWaves[8].samples.push(sens[key]["Clear"] ) 
+          newWaves[9].samples.push(sens[key]["NIR"] ) 
           
           cnt++
         }
         setWave(newWaves)
 
+        let sampleMax = largestWave
+        newWaves.forEach((prop:any, index:any) => {
+          prop.samples.forEach((el:any, key:any) => {
+            if(el > sampleMax)
+              sampleMax = el
+          })
+        })
+
+        setLargestWave(sampleMax)
+
         setCo(newCoSamples)
       } else {
         console.log("No data available");
       }
+
+      updateCurrentTime()
     })
 
 
@@ -149,13 +163,25 @@ function App() {
           logout={logout}
           currentTime={currentTime}
           lastUpdated={lastUpdated}
+
+          largestWave={largestWave}
         />
   );
 
+  function updateCurrentTime() {
+    let d = new Date()
+    setCurrentTime(d)
+
+    return setTimeout(updateCurrentTime, 1000);
+  }
+
   function getTime(d: string) {
     let str = d.split(',')
+
+    let timeStr = str[1].split('+')
     let senseTime = new Date("20"+str[0])
-    return senseTime
+
+    return senseTime.toISOString().substring(0, 10) + "  at  " + timeStr[0]
   }
 
   function logout() {

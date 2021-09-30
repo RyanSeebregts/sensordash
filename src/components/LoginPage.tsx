@@ -60,11 +60,17 @@ function LoginPage(props: propTypes) {
   const [regError, setRegError] = useState('')
 
   const [loading, setLoading] = useState(false)
+  const [loginLoading, setLoginLoading] = useState(true)
+
   const [registerDone, setRegisterDone] = useState(false)
 
   let timer:any = null
 
   useEffect(() => {
+    timer = setTimeout(() => {
+      setLoginLoading(false)
+    }, 1000)
+
     const usersRef = ref(db, 'Users/');
 
     onValue(usersRef, (snapshot:any) => {
@@ -123,10 +129,24 @@ function LoginPage(props: propTypes) {
             clicked={login}
             value={'login'}
             color={colors.primary}
+            textColor={'white'}
           />
 
           <div onClick={() => setLoginOpen(false)} style={{cursor: 'pointer', marginTop: '10px'}}>register</div>
 
+          {
+            loginLoading &&
+              <div 
+                style={{
+                  top: '0px',
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  background: 'black',
+                  opacity: 0.6
+                }} 
+              />
+          }
           </LoginWindow>
 
           :
@@ -158,6 +178,7 @@ function LoginPage(props: propTypes) {
               clicked={register}
               value={'register'}
               color={colors.primary}
+              textColor={'white'}
             />
 
             <div onClick={() => setLoginOpen(true)} style={{cursor: 'pointer', marginTop: '10px'}}>go to login</div>
@@ -221,18 +242,20 @@ function LoginPage(props: propTypes) {
     setLoginError('')
 
     let userCorrect = false
-    users.forEach(async (el:any) => {
-      if(el.username === loginUsername) {
-        let hashLogin = await hashIt(loginPassword, el.salt)
+
+    for(let i = 0; i < users.length; i++) {
+      if(users[i].username === loginUsername) {
+        let hashLogin = await hashIt(loginPassword, users[i].salt)
         console.log(hashLogin)
 
-        if(hashLogin === el.password) {
-          props.setLoggedIn(true)
+        if(hashLogin === users[i].password) {
           userCorrect = true
+          props.setLoggedIn(true)
           return
         }
       }
-    })
+    }
+
     if(!userCorrect)
       setLoginError('username or password incorrect')
   }

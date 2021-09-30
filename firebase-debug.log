@@ -1,0 +1,76 @@
+[debug] [2021-09-29T10:06:49.527Z] ----------------------------------------------------------------------
+[debug] [2021-09-29T10:06:49.529Z] Command:       /usr/local/Cellar/node/15.5.1/bin/node /usr/local/bin/firebase deploy
+[debug] [2021-09-29T10:06:49.529Z] CLI Version:   7.11.0
+[debug] [2021-09-29T10:06:49.529Z] Platform:      darwin
+[debug] [2021-09-29T10:06:49.529Z] Node Version:  v15.5.1
+[debug] [2021-09-29T10:06:49.530Z] Time:          Wed Sep 29 2021 12:06:49 GMT+0200 (South Africa Standard Time)
+[debug] [2021-09-29T10:06:49.530Z] ----------------------------------------------------------------------
+[debug] [2021-09-29T10:06:49.530Z] 
+[debug] [2021-09-29T10:06:49.540Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-29T10:06:49.540Z] > authorizing via signed-in user
+[debug] [2021-09-29T10:06:49.540Z] [iam] checking project testsensor-50e80 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-09-29T10:06:49.545Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/testsensor-50e80:testIamPermissions  
+
+[debug] [2021-09-29T10:06:50.337Z] <<< HTTP RESPONSE 200
+[debug] [2021-09-29T10:06:50.341Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/testsensor-50e80  
+ 
+[debug] [2021-09-29T10:06:50.988Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'testsensor-50e80'...
+[info] 
+[info] i  deploying hosting
+[debug] [2021-09-29T10:06:50.998Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/testsensor-50e80-default-rtdb/versions  
+
+[debug] [2021-09-29T10:06:52.758Z] <<< HTTP RESPONSE 500
+[debug] [2021-09-29T10:06:52.758Z] <<< HTTP RESPONSE BODY
+[error] 
+[error] Error: HTTP Error: 500, Internal error encountered.
+[debug] [2021-09-29T10:06:52.767Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 500,
+      "message": "Internal error encountered.",
+      "status": "INTERNAL"
+    }
+  },
+  "response": {
+    "statusCode": 500,
+    "body": {
+      "error": {
+        "code": 500,
+        "message": "Internal error encountered.",
+        "status": "INTERNAL"
+      }
+    },
+    "headers": {
+      "vary": "X-Origin, Referer, Origin,Accept-Encoding",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Wed, 29 Sep 2021 10:06:55 GMT",
+      "server": "ESF",
+      "cache-control": "private",
+      "x-xss-protection": "0",
+      "x-frame-options": "SAMEORIGIN",
+      "x-content-type-options": "nosniff",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"",
+      "accept-ranges": "none",
+      "transfer-encoding": "chunked"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "firebasehosting.googleapis.com",
+        "port": 443,
+        "hostname": "firebasehosting.googleapis.com",
+        "hash": null,
+        "search": null,
+        "query": null,
+        "pathname": "/v1beta1/sites/testsensor-50e80-default-rtdb/versions",
+        "path": "/v1beta1/sites/testsensor-50e80-default-rtdb/versions",
+        "href": "https://firebasehosting.googleapis.com/v1beta1/sites/testsensor-50e80-default-rtdb/versions"
+      },
+      "method": "POST"
+    }
+  }
+}

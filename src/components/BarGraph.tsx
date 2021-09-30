@@ -15,6 +15,8 @@ interface propTypes {
     average: number
     value: number
     color: string
+    min?: number
+    max?: number
 }
 
 
@@ -26,12 +28,12 @@ function BarGraph(props:propTypes) {
         <Bar 
             data={
                 {
-                    labels: ['average', 'current'],
+                    labels: ['current', 'average'],
                     datasets: [{
-                        backgroundColor: ['lightgrey', props.color],
+                        backgroundColor: [props.color, 'lightgrey'],
                         data: [
-                            props.average,
-                            props.value
+                            props.value,
+                            props.average
                         ]
                     }]
                 }
@@ -48,6 +50,12 @@ function BarGraph(props:propTypes) {
                             text: props.title   
                         }
                     },
+                    scales: {
+                        y: {
+                            min: props.min || 0,
+                            max: props.max || undefined   
+                        }
+                    }
                 }
             } 
             width={100} 

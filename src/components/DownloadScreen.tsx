@@ -71,7 +71,7 @@ const TextBoxes = styled.div`
     width: calc(100% - 20px);
 `
 
-const csvData = [
+const csvData:any = [
     ["time", "CO2", "NIR", "Clear", "F1 415nm", "F2 445nm", "F3 480nm", "F4 515nm", "F5 555nm", "F6 590nm", "F7 630nm", "F8 680nm"],
 ];
 
@@ -84,6 +84,7 @@ function DownloadScreen(props:propTypes) {
     const d = new Date()
     const [start, setStart] = useState(d)
     const [end, setEnd] = useState(d)
+    const [error, setError] = useState('')
 
     const [csv, setCsv] = useState<any>(csvData)
     const [downloadCsv, setDownloadCsv] = useState(false)
@@ -131,7 +132,7 @@ function DownloadScreen(props:propTypes) {
 
                 <div style={{marginTop: '10px'}}>
 
-                    some error
+                    {error}
                 </div>
 
                 <div style={{marginTop: '20px', marginBottom: '20px'}}>
@@ -148,7 +149,7 @@ function DownloadScreen(props:propTypes) {
 
             {
                 downloadCsv &&
-                    <CSVDownload data={csv} target="_blank" />
+                    <CSVDownload data={csv} target="_blank" filename={"wavedata.csv"} />
 
             }
 
@@ -158,7 +159,7 @@ function DownloadScreen(props:propTypes) {
     function getDateString(val: Date) {
 
         let yearStr = val.getFullYear()
-        let monthStr:string = val.getMonth().toString()
+        let monthStr:string = `${parseInt(val.getMonth().toString()) + 1}`
         let dayStr:string = val.getDate().toString()
 
         if( parseInt(monthStr) < 10)
@@ -181,7 +182,9 @@ function DownloadScreen(props:propTypes) {
         setStart(d)
     }
     function setEndDate(val: any) {
+        console.log(val.target.value)
         let d = new Date(val.target.value)
+        console.log(d)
         setEnd(d)
     }
 
@@ -189,13 +192,22 @@ function DownloadScreen(props:propTypes) {
         const sensorsRef = ref(db, 'Sensors/');
         setDownloadCsv(false)
 
+        if(start > end) {
+            setError('start date must be before end date')
+
+            return
+        }
+
 
         get( sensorsRef ).then((snapshot:any) => {
             if (snapshot.exists()) {
+                setError('')
+
                 console.log(snapshot.val())
                 let sens = snapshot.val()
 
-                let newCsv = csvData
+                let newCsv:any = [].concat(csvData)
+                console.log(newCsv)
 
                 for (var key in sens) {
                     let sensTimeStr = sens[key]["Time"]
@@ -232,11 +244,22 @@ function DownloadScreen(props:propTypes) {
                             f8
                         ]
                         newCsv.push(newRow)
-                        setCsv(newCsv)
                     }
+                }   
+                console.log(newCsv.length)
+                if(newCsv.length > 1) {
+                    setCsv(newCsv)
+                    setDownloadCsv(true)
                 }
-                setCsv(newCsv)
-                setDownloadCsv(true)
+
+                else {
+                    setError('no data in this time period')
+                }
+            }
+
+            else {
+                setError('server error')
+
             }
         })
     }

@@ -7,7 +7,7 @@ import DownloadScreen from './DownloadScreen';
 import Button from './Button';
 
 
-const colorsArr = [colors.blue, colors.green, colors.red, colors.primary, colors.yellow, colors.purple, colors.black, colors.pink]
+const colorsArr = [colors.darkPurple, colors.purple, colors.blue, colors.green, colors.darkBlue, colors.primary, colors.lightRed, colors.red, 'black', 'black']
 
 const Container = styled.div`
   position: fixed;
@@ -44,12 +44,12 @@ const WaveContentContainer = styled.div`
     flex-shrink: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 `
 
 const WaveContent = styled.div`
     width: calc(100% - 40px);
-    height: calc(100% - 40px);
+    height: calc(100% - 0px);
     background: white;
     display: flex;
     flex-shrink: 0;
@@ -83,13 +83,18 @@ const CsvButton = styled.div`
     }
  
 `
+
+const DateContainer = styled.div`
+    font-size: 15px;
+`
 interface propTypes {
     coAverage: number
     coSamples: number[]
     waveSamples: any
     logout: any
     currentTime: Date
-    lastUpdated: Date
+    lastUpdated: string
+    largestWave: number
 }
 
 
@@ -106,7 +111,13 @@ function Dashboard(props:propTypes) {
                     fontWeight: 'bold'
                 }}
             >
-                {`Last updated: ${timeString(props.lastUpdated)}`}
+                <DateContainer>
+                    Last updated: 
+                    <div style={{fontSize: '20px'}}>
+                        {props.lastUpdated}
+                    </div>
+
+                </DateContainer>
             </NavContent>
 
             <NavContent
@@ -116,7 +127,13 @@ function Dashboard(props:propTypes) {
 
                 }}
             >
-                {`Current time: ${timeString(props.currentTime)}`}
+                <DateContainer>
+                    Current time: 
+                    <div style={{fontSize: '20px'}}>
+                        {timeString(props.currentTime)}
+                    </div>
+
+                </DateContainer>
             </NavContent>
 
             <NavContent
@@ -133,6 +150,7 @@ function Dashboard(props:propTypes) {
                 />
             </NavContent>
         </NavBar>
+        
         <WaveContentContainer>
             <WaveContent>
                 {
@@ -144,6 +162,8 @@ function Dashboard(props:propTypes) {
                                     average={prop.average}
                                     value={prop.samples[0]}
                                     color={colorsArr[key]}
+                                    min={0}
+                                    max={props.largestWave * 1.1}
                                 />
                             </WaveGraphContainer>
                         </div> 
@@ -156,7 +176,7 @@ function Dashboard(props:propTypes) {
                             title={'CO2 Graph'}
                             average={props.coAverage}
                             value={props.coSamples[0]}
-                            color={colors.primary}
+                            color={colors.green}
                         />
                     </WaveGraphContainer>
                 </div> 
@@ -175,6 +195,12 @@ function Dashboard(props:propTypes) {
 
             </WaveContent>
         </WaveContentContainer>
+
+        <div style={{
+            width: '100%', height: '30px', display: 'flex', alignItems: 'center', background: '#eeeeee'
+        }}>
+            <div style={{marginLeft: '20px', fontSize: '15px'}}>* all averages calculated using last 10 samples</div>
+        </div>
 
                 {/*
         <BottomContent>
@@ -209,7 +235,7 @@ function Dashboard(props:propTypes) {
   );
 
   function timeString(d: Date) {
-    let str = d.toISOString().substring(0, 10);
+    let str = `${d.toISOString().substring(0, 10)}   ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     return str
   }
 }
